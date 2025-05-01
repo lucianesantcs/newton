@@ -1,6 +1,15 @@
 #include <stdio.h>
 #include <string.h>
 
+
+float densidadePopulacional(float quantidadePopulacao, float areaKM) {
+    return quantidadePopulacao / areaKM;
+};
+
+float pibPerCapita(float pib, float quantidadePopulacao) {
+    return pib / quantidadePopulacao;
+}
+
 int main()
 {
     char siglaEstado;
@@ -10,18 +19,19 @@ int main()
     float areaKM;
     float pib;
     int quantidadePontosTuristicos;
+    // float densidadePopulacional;
+    // float pibPerCapita;
 
     printf("Digite a letra de um Estado: ");
     scanf(" %c", &siglaEstado);
 
     printf("Digite o código da carta com 3 caracteres: ");
     scanf(" %s", codigoCarta);
+    getchar(); // Limpa '\n' deixado no buffer após enter do codigoCarta
 
     printf("Digite o nome da cidade: ");
-    while (getchar() != '\n')
-        ;
-    fgets(nomeCidade, 50, stdin);
-    nomeCidade[strcspn(nomeCidade, "\n")] = 0;
+    fgets(nomeCidade, sizeof(nomeCidade), stdin);
+    nomeCidade[strcspn(nomeCidade, "\n")] = '\0'; 
 
     printf("Digite o número de habitantes da cidade: ");
     scanf("%d", &quantidadePopulacao);
@@ -41,9 +51,9 @@ int main()
     printf("Estado: %c\n", siglaEstado);
     printf("Código: %s\n", codigoCarta);
     printf("Nome da Cidade: %s\n", nomeCidade);
-    printf("População: %d\n", quantidadePopulacao);
+    printf("População: %.2f\n", densidadePopulacional(quantidadePopulacao, areaKM));
     printf("Área: %f km²\n", areaKM);
-    printf("PIB: %2.f bilhões de reais \n", pib);
+    printf("PIB: %2.f bilhões de reais \n", pibPerCapita(pib, quantidadePopulacao));
     printf("Número de Pontos Turísticos: %d\n", quantidadePontosTuristicos);
 
     return 0;
